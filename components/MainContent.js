@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { observer } from "mobx-react";
 
 // NativeBase
 import { Content } from "native-base";
@@ -6,8 +7,8 @@ import { Content } from "native-base";
 // Component
 import Login from "./Login";
 import Profile from "./Profile";
-import Lol from "./Lol";
 import PrivateLul from "./PrivateLul";
+import LandingPage from "./LandingPage";
 
 // Router
 import { Route, Switch, Redirect } from "react-router-native";
@@ -20,7 +21,7 @@ class MainContent extends Component {
     return (
       <Content>
         <Switch>
-          <Route path="/lol" component={Lol} />
+          <Route path="/LandingPage" component={LandingPage} />
           <PrivateRoute path="/privateLul" component={PrivateLul} />
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/login" component={Login} />
@@ -31,4 +32,4 @@ class MainContent extends Component {
   }
 }
 
-export default MainContent;
+export default observer(MainContent);

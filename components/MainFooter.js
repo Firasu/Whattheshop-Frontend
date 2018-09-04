@@ -12,7 +12,7 @@ class MainFooter extends Component {
       <Footer>
         <FooterTab>
           <Link component={Button} to="/lol">
-            <Icon type="Octicons" name="smiley" />
+            <Icon type="Octicons" name="search" />
           </Link>
           <Link component={Button} to="/privateLul">
             <Icon name="lock" />
