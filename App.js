@@ -51,7 +51,6 @@ class App extends Component {
         <NativeRouter>
           <Container>
             <MainHeader />
-            <LandingPage />
             <MainContent />
             <MainFooter />
           </Container>

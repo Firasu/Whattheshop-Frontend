@@ -1,7 +1,9 @@
 import React, { Component } from "react";
+import { StyleSheet } from "react-native";
+import { SearchBar } from "react-native-elements";
 
 // NativeBase
-import { Footer, FooterTab, Button, Icon } from "native-base";
+import { Footer, FooterTab, Icon, Button } from "native-base";
 
 // Router
 import { Link } from "react-router-native";
@@ -11,19 +13,25 @@ class MainFooter extends Component {
     return (
       <Footer>
         <FooterTab>
-          <Link component={Button} to="/lol">
-            <Icon type="Octicons" name="search" />
-          </Link>
+          <Button>
+            <Icon style={styles.icon} type="Octicons" name="search" />
+          </Button>
           <Link component={Button} to="/privateLul">
-            <Icon name="lock" />
+            <Icon style={styles.icon} name="lock" />
           </Link>
           <Link component={Button} to="/profile">
-            <Icon name="person" />
+            <Icon style={styles.icon} name="person" />
           </Link>
         </FooterTab>
       </Footer>
     );
   }
 }
-
+{
+}
+const styles = StyleSheet.create({
+  icon: {
+    color: "#5F9EA0"
+  }
+});
 export default MainFooter;

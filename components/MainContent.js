@@ -7,11 +7,14 @@ import { Content } from "native-base";
 // Component
 import Login from "./Login";
 import Profile from "./Profile";
-import PrivateLul from "./PrivateLul";
+
 import LandingPage from "./LandingPage";
+import expertList from "./expertList";
+import expertDetails from "./expertDetails";
+// import itemList from "./itemList";
 
 // Router
-import { Route, Switch, Redirect } from "react-router-native";
+import { Route, Switch, Redirect, withRouter } from "react-router-native";
 
 // Common
 import PrivateRoute from "../common/PrivateRoute";
@@ -21,15 +24,16 @@ class MainContent extends Component {
     return (
       <Content>
         <Switch>
-          <Route path="/LandingPage" component={LandingPage} />
-          <PrivateRoute path="/privateLul" component={PrivateLul} />
+          <Route path="/expertList" component={expertList} />
+          <Route path="/expertDetails/:id" component={expertDetails} />
+          <Route exact path="/" component={LandingPage} />
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/login" component={Login} />
-          <Redirect to="/lol" />
+          <Redirect to="/login" component={Login} />
         </Switch>
       </Content>
     );
   }
 }
 
-export default observer(MainContent);
+export default MainContent;

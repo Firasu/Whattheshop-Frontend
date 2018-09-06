@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import {
   Platform,
+  Animation,
   StyleSheet,
   Text,
   View,
+  Header,
+  Button,
   Image,
   TouchableHighlight
 } from "react-native";
-
+import { Link, withRouter } from "react-router-native";
+import { observer } from "mobx-react";
 import ImageSlider from "react-native-image-slider";
 
 class LandingPage extends Component {
@@ -17,15 +21,14 @@ class LandingPage extends Component {
       "https://media.istockphoto.com/photos/female-architect-picture-id473849812",
       "https://media.istockphoto.com/photos/his-presentations-are-always-informative-picture-id887882750"
     ];
-
     return (
       <View style={styles.container}>
         <View style={styles.content1}>
-          <Text style={styles.contentText}> Find Your Expert Today.</Text>
+          <Link to="/expertList" component={Button} title="Find Your Expert" />
         </View>
         <ImageSlider
           loop
-          autoPlayWithInterval={3000}
+          autoPlayWithInterval={1000}
           images={images}
           onPress={({ index }) => alert(index)}
           customSlide={({ index, item, style, width }) => (
@@ -52,6 +55,7 @@ class LandingPage extends Component {
             </View>
           )}
         />
+        );
       </View>
     );
   }
@@ -60,26 +64,19 @@ class LandingPage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#5F9EA0"
   },
   slider: { backgroundColor: "#000", height: 350 },
   content1: {
     width: "100%",
-    height: 50,
-    marginBottom: 10,
-    backgroundColor: "#000",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  content2: {
-    width: "100%",
     height: 100,
-    marginTop: 10,
-    backgroundColor: "#000",
+    marginBottom: 10,
+    backgroundColor: "#5F9EA0",
     justifyContent: "center",
     alignItems: "center"
   },
-  contentText: { color: "#fff" },
+
+  contentText: { color: "#fff", fontWeight: "bold" },
   buttons: {
     zIndex: 1,
     height: 15,
@@ -99,7 +96,7 @@ const styles = StyleSheet.create({
   },
   buttonSelected: {
     opacity: 1,
-    color: "red"
+    color: "#5F9EA0"
   },
   customSlide: {
     backgroundColor: "white",
@@ -112,4 +109,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default LandingPage;
+export default observer(LandingPage);
