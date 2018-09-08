@@ -11,19 +11,28 @@ class ExpertStore {
     this.loading = true;
     this.query = "";
     this.detail = [];
+    this.items = [];
   }
 
   fetchExperts() {
-    return instance
-      .get("/list")
-      .then(res => {
-        return res.data;
-      })
-      .then(experts => {
-        this.experts = experts;
-        this.loading = false;
-      })
-      .catch(err => console.error(err));
+    return (
+      instance
+        .get("/list")
+        .then(res => {
+          return res.data;
+        })
+        .then(experts => {
+          this.experts = experts;
+
+          this.loading = false;
+        })
+        // .then(items => {
+        //   this.experts.items = items;
+        //
+        //   this.loading = false;
+        // })
+        .catch(err => console.error(err))
+    );
   }
 
   get filteredExperts() {
@@ -35,10 +44,15 @@ class ExpertStore {
   getExpertbyID(id) {
     return this.experts.find(expert => +expert.id === +id);
   }
+
+  getItembyID(id) {
+    return this.items.find(item => +item.id === +id);
+  }
 }
 
 decorate(ExpertStore, {
   experts: observable,
+  items: observable,
   loading: observable,
   query: observable,
   filteredExperts: computed

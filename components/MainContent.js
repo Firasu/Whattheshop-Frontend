@@ -7,6 +7,7 @@ import { Content } from "native-base";
 // Component
 import Login from "./Login";
 import Profile from "./Profile";
+import RegistrationForm from "./RegistrationForm";
 
 import LandingPage from "./LandingPage";
 import expertList from "./expertList";
@@ -29,6 +30,7 @@ class MainContent extends Component {
           <Route exact path="/" component={LandingPage} />
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/login" component={Login} />
+          <Route path="/register" component={RegistrationForm} />
           <Redirect to="/login" component={Login} />
         </Switch>
       </Content>

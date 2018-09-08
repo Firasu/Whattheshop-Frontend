@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import {
-  Platform,
-  Animation,
   StyleSheet,
   Text,
   View,
@@ -24,7 +22,12 @@ class LandingPage extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.content1}>
-          <Link to="/expertList" component={Button} title="Find Your Expert" />
+          <Link
+            style={styles.link}
+            to="/expertList"
+            component={Button}
+            title="Find Your Expert"
+          />
         </View>
         <ImageSlider
           loop
@@ -63,8 +66,7 @@ class LandingPage extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "#5F9EA0"
+    flex: 1
   },
   slider: { backgroundColor: "#000", height: 350 },
   content1: {
@@ -106,6 +108,15 @@ const styles = StyleSheet.create({
   customImage: {
     width: 400,
     height: 400
+  },
+  link: {
+    color: "white",
+    fontSize: 20,
+    fontStyle: "italic",
+    fontWeight: "bold",
+    textShadowColor: "black",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 15
   }
 });
 

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { StyleSheet, Styles } from "react-native";
 // NativeBase
 import {
   Header,
@@ -23,11 +24,22 @@ class MainHeader extends Component {
             <Icon name="arrow-back" />
           </Button>
         </Left>
-        <Body>{/* <Text> Home </Text> */}</Body>
+        <Body>
+          <Text style={styles.logo}> The Experts </Text>
+        </Body>
         <Right />
       </Header>
     );
   }
 }
-
+const styles = StyleSheet.create({
+  logo: {
+    color: "#5F9EA0",
+    fontSize: 20,
+    fontStyle: "italic",
+    fontWeight: "bold",
+    textShadowColor: "black",
+    textShadowOffset: { width: 2, height: 2 }
+  }
+});
 export default withRouter(MainHeader);

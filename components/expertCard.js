@@ -22,6 +22,7 @@ import expertStore from "../stores/expertStore";
 class ExpertCard extends Component {
   render() {
     let expert = this.props.expert;
+
     return (
       <ScrollView>
         <Card>

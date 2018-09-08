@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-native";
 import { observer } from "mobx-react";
-import { Image, ScrollView, Stylesheet } from "react-native";
+import { Image, ScrollView } from "react-native";
 import {
   Container,
   Header,
@@ -15,34 +16,31 @@ import {
   Body,
   Right
 } from "native-base";
-
 //store
 import expertStore from "../stores/expertStore";
 
-class ExpertDetails extends Component {
+class ItemCard extends Component {
   render() {
-    const expertID = this.props.match.params.id;
-    const expert = expertStore.getExpertbyID(expertID);
-    // //items
-    // const itemID = this.props.match.params.id;
-    // const item = expertStore.getItembyID(itemID);
+    let item = this.props.item;
+
     return (
       <ScrollView>
         <Card>
           <CardItem>
             <Left>
-              <Thumbnail source={{ uri: expert.photo }} />
+              <Thumbnail source={{ uri: item.photo }} />
               <Body>
-                <Text>
-                  {expert.first_name} {expert.last_name}
-                </Text>
-                <Text note>{expert.qualification}</Text>
+                <Link to={`/expertDetails/${item.id}`}>
+                  <Text>{item.name}</Text>
+                </Link>
+                <Text>{item.description}</Text>
+                <Text note>{item.price}</Text>
               </Body>
             </Left>
           </CardItem>
           <CardItem cardBody>
             <Image
-              source={{ uri: expert.photo }}
+              source={{ uri: item.photo }}
               style={{ height: 200, width: null, flex: 1 }}
             />
           </CardItem>
@@ -72,4 +70,4 @@ class ExpertDetails extends Component {
   }
 }
 
-export default observer(ExpertDetails);
+export default observer(ItemCard);
