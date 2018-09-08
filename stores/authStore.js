@@ -35,6 +35,32 @@ class Store {
     );
   }
 
+  registerUser(username, password) {
+    const userData = {
+      username: username,
+      password: password
+    };
+    instance
+      .post("/api/register/", userData)
+      .then(response => response.response)
+      .then(user => {
+        const { token } = user;
+        // Save token to localStorage
+        AsyncStorage.setItem("jwtToken", token)
+          .then(() => {
+            // Set token to Auth header
+            setAuthToken(token);
+
+            // Decode token to get user data
+            const decoded = jwt_decode(token);
+            // Set current user
+            this.setCurrentUser(decoded);
+          })
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  }
+
   loginUser(username, password) {
     const userData = {
       username: username,
@@ -61,6 +87,13 @@ class Store {
       .catch(err => console.log("something went wrong logging in"));
   }
 
+  getUserProfile() {
+    axios
+      .get("http://192.168.100.244:8000/api/user/profile/")
+      .then(response => console.log(response.data))
+      .then(profile => (this.userDetails = profile))
+      .catch(err => console.error(err));
+  }
   checkForToken = () => {
     AsyncStorage.getItem("jwtToken")
       .then(token => {
@@ -88,7 +121,8 @@ class Store {
 
 decorate(Store, {
   user: observable,
-  isAuthenticated: computed
+  isAuthenticated: computed,
+  getUserProfile: action
 });
 
 export default new Store();
