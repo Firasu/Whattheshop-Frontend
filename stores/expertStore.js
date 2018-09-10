@@ -7,32 +7,22 @@ const instance = axios.create({ baseURL: "http://192.168.100.113:8000/api" });
 class ExpertStore {
   constructor() {
     this.experts = [];
-    this.currentExpert = [];
     this.loading = true;
     this.query = "";
-    this.detail = [];
     this.items = [];
   }
 
   fetchExperts() {
-    return (
-      instance
-        .get("/list")
-        .then(res => {
-          return res.data;
-        })
-        .then(experts => {
-          this.experts = experts;
+    return instance
+      .get("/list")
+      .then(res => {
+        return res.data;
+      })
+      .then(experts => {
+        this.experts = experts;
+      })
 
-          this.loading = false;
-        })
-        // .then(items => {
-        //   this.experts.items = items;
-        //
-        //   this.loading = false;
-        // })
-        .catch(err => console.error(err))
-    );
+      .catch(err => console.error(err));
   }
 
   get filteredExperts() {

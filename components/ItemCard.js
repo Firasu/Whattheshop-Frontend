@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-native";
 import { observer } from "mobx-react";
 import { Image, ScrollView } from "react-native";
+import { Icon } from "react-native-elements";
 import {
   Container,
   Header,
@@ -11,61 +12,69 @@ import {
   Thumbnail,
   Text,
   Button,
-  Icon,
   Left,
   Body,
   Right
 } from "native-base";
 //store
 import expertStore from "../stores/expertStore";
+import cartStore from "../stores/cartStore";
 
 class ItemCard extends Component {
+  handleAdd(id) {
+    cartStore.handleOrder(id);
+  }
+  handleRemove(id) {
+    cartStore.handleRemoval(id);
+  }
   render() {
-    let item = this.props.item;
+    const item = this.props.item;
 
     return (
-      <ScrollView>
-        <Card>
-          <CardItem>
-            <Left>
-              <Thumbnail source={{ uri: item.photo }} />
-              <Body>
-                <Link to={`/expertDetails/${item.id}`}>
-                  <Text>{item.name}</Text>
-                </Link>
-                <Text>{item.description}</Text>
-                <Text note>{item.price}</Text>
-              </Body>
-            </Left>
-          </CardItem>
-          <CardItem cardBody>
-            <Image
-              source={{ uri: item.photo }}
-              style={{ height: 200, width: null, flex: 1 }}
-            />
-          </CardItem>
-          <CardItem>
-            <Left>
-              <Button transparent>
-                <Icon active name="thumbs-up" />
-                <Text>12 Likes</Text>
-              </Button>
-            </Left>
+      <Card>
+        <CardItem>
+          <Left>
+            {/* <Thumbnail source={{ uri: expert.photo }} /> */}
             <Body>
-              <Button transparent>
-                <Icon active name="chatbubbles" />
-                <Text>4 Comments</Text>
-              </Button>
+              <Text>{item.name}</Text>
+              <Text>{item.description}</Text>
+              <Text note>{item.price}</Text>
             </Body>
-            <Right>
-              <Button transparent>
-                <Icon active name="clock" />
-                <Text>{expert.years_experience}</Text>
-              </Button>
-            </Right>
-          </CardItem>
-        </Card>
-      </ScrollView>
+          </Left>
+        </CardItem>
+        <CardItem cardBody>
+          <Image
+            source={{ uri: item.photo }}
+            style={{ height: 200, width: null, flex: 1 }}
+          />
+        </CardItem>
+        <CardItem>
+          <Right>
+            <Button
+              transparent
+              onPress={() => {
+                this.handleAdd(item.id);
+              }}
+            >
+              <Icon active name="add" />
+              <Text>Add</Text>
+            </Button>
+          </Right>
+          <Left>
+            <Button
+              transparent
+              onPress={() => {
+                this.handleRemove(item.id);
+              }}
+            >
+              <Icon active name="delete" />
+              <Text>Remove</Text>
+            </Button>
+          </Left>
+
+          <Body />
+        </CardItem>
+      </Card>
     );
   }
 }
