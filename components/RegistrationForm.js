@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { observer } from "mobx-react";
+import { Link, Redirect } from "react-router-native";
 
 import {
   StyleSheet,
@@ -23,8 +24,9 @@ class RegistrationForm extends Component {
           />
           <Text style={styles.header}> Register.</Text>
           <TextInput
+            onChangeText={username => this.setState({ username })}
             style={styles.textInput}
-            placeholder="Full Name"
+            placeholder="Username"
             returnKeyType={"next"}
             onSubmitEditing={() => {
               this.secondTextInput.focus();
@@ -44,16 +46,26 @@ class RegistrationForm extends Component {
             blurOnSubmit={false}
           />
           <TextInput
+            onChangeText={password => this.setState({ password })}
             style={styles.textInput}
+            autoCapitalize="none"
             placeholder="Password"
             secureTextEntry={true}
             ref={input => {
               this.thirdTextInput = input;
             }}
           />
-          <TouchableOpacity style={styles.buttonContainer}>
+          <Link
+            to="/profile/"
+            component={TouchableOpacity}
+            style={styles.buttonContainer}
+            autoCapitalize="none"
+            onPress={() => {
+              authStore.registerUser(this.state.username, this.state.password);
+            }}
+          >
             <Text style={styles.buttonText}> Sign Up </Text>
-          </TouchableOpacity>
+          </Link>
         </View>
       </View>
     );

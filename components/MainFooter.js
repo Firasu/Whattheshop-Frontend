@@ -3,10 +3,13 @@ import { StyleSheet } from "react-native";
 import { SearchBar } from "react-native-elements";
 
 // NativeBase
-import { Footer, FooterTab, Icon, Button } from "native-base";
+import { Footer, FooterTab, Icon, Button, Text } from "native-base";
 
 // Router
-import { Link } from "react-router-native";
+import { observer } from "mobx-react";
+import { Link, withRouter } from "react-router-native";
+//store
+import cartStore from "../stores/cartStore";
 
 class MainFooter extends Component {
   render() {
@@ -16,11 +19,13 @@ class MainFooter extends Component {
           <Button>
             <Icon style={styles.icon} type="Octicons" name="search" />
           </Button>
-          <Link component={Button} to="/privateLul">
-            <Icon style={styles.icon} name="lock" />
-          </Link>
           <Link component={Button} to="/profile">
             <Icon style={styles.icon} name="person" />
+          </Link>
+          <Link component={Button} to="/Cart">
+            <Text>
+              {cartStore.quantity} <Icon style={styles.icon} name="cart" />
+            </Text>
           </Link>
         </FooterTab>
       </Footer>
@@ -34,4 +39,5 @@ const styles = StyleSheet.create({
     color: "#5F9EA0"
   }
 });
-export default MainFooter;
+
+export default withRouter(observer(MainFooter));

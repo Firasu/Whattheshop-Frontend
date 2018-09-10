@@ -30,7 +30,7 @@ class Store {
         setAuthToken();
       },
       () => {
-        console.log("something went wrong with logging out");
+        console.log("Oops.Something went wrong with logging out.");
       }
     );
   }
@@ -81,10 +81,12 @@ class Store {
             // Set current user
             this.setCurrentUser(decoded);
           },
-          () => console.log("something went wrong with setting jwt token")
+          () => console.log("Something went wrong with setting the jwt token.")
         );
       })
-      .catch(err => console.log("something went wrong logging in"));
+      .catch(err =>
+        console.log("Something went wrong while logging in. Please try again")
+      );
   }
 
   getUserProfile() {

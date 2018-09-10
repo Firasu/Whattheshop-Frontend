@@ -4,17 +4,17 @@ import { Content, Card, CardItem, Body } from "native-base";
 import { observer } from "mobx-react";
 
 // Components
-import ItemCard from "./itemCard";
+import ItemCard from "./ItemCard";
 import expertStore from "../stores/expertStore";
 
-class itemList extends Component {
+class ItemList extends Component {
   render() {
-    const itemCards = itemStore.items.map(item => (
-      <ItemCard key={item.first_name} item={item} />
+    const itemCards = expertStore.items.map(item => (
+      <ItemCard key={item.name} item={item} />
     ));
 
     return <View>{itemCards}</View>;
   }
 }
 
-export default observer(itemList);
+export default observer(ItemList);
