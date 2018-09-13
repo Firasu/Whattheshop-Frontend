@@ -81,24 +81,24 @@ class Profile extends Component {
             <View> {this.history}</View>
           </Card>
           // ------------------ order history--------------------------------
-          <Card>
-            <CardItem body>
-              <ListItem>
-                {cartStore.orderHistory.map(item => {
-                  if (item.order_items) {
-                    return item.order_items.map(orderitem => {
-                      console.log(orderitem);
-                      return (
+          {cartStore.orderHistory.map(item => {
+            if (item.order_items) {
+              return item.order_items.map(orderitem => {
+                console.log(orderitem);
+                return (
+                  <Card>
+                    <CardItem body>
+                      <ListItem>
                         <Text key={orderitem.id}>
                           {orderitem.item.description}
                         </Text>
-                      );
-                    });
-                  }
-                })}
-              </ListItem>
-            </CardItem>
-          </Card>
+                      </ListItem>
+                    </CardItem>
+                  </Card>
+                );
+              });
+            }
+          })}
         </View>
       );
     }
