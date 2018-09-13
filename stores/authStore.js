@@ -7,7 +7,7 @@ import jwt_decode from "jwt-decode";
 import setAuthToken from "../utils/setAuthToken";
 
 const instance = axios.create({
-  baseURL: "http://127.0.0.1:8000/"
+  baseURL: "http://192.168.100.113:8000/"
 });
 
 class Store {
@@ -19,8 +19,8 @@ class Store {
     return !!this.user;
   }
 
-  setCurrentUser(decoded) {
-    this.user = decoded;
+  setCurrentUser(user) {
+    this.user = user;
   }
 
   logoutUser() {
@@ -79,6 +79,7 @@ class Store {
             // Decode token to get user data
             const decoded = jwt_decode(token);
             // Set current user
+            console.log(decoded);
             this.setCurrentUser(decoded);
           },
           () => console.log("Something went wrong with setting the jwt token.")
@@ -110,6 +111,7 @@ class Store {
             // Set auth token header
             setAuthToken(token);
             // Set user and isAuthenticated
+            console.log(decoded);
             this.setCurrentUser(decoded);
           } else {
             this.logoutUser();

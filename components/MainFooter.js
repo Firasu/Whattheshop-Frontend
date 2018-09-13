@@ -16,15 +16,15 @@ class MainFooter extends Component {
     return (
       <Footer>
         <FooterTab>
-          <Button>
+          <Link component={Button} to="/expertList">
             <Icon style={styles.icon} type="Octicons" name="search" />
-          </Button>
+          </Link>
           <Link component={Button} to="/profile">
             <Icon style={styles.icon} name="person" />
           </Link>
           <Link component={Button} to="/Cart">
             <Text>
-              {cartStore.quantity} <Icon style={styles.icon} name="cart" />
+              {cartStore.cart.length} <Icon style={styles.icon} name="cart" />
             </Text>
           </Link>
         </FooterTab>
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withRouter(observer(MainFooter));
+export default observer(MainFooter);

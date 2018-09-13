@@ -7,18 +7,20 @@ import { observer } from "mobx-react";
 import ExpertCard from "./expertCard";
 import ItemCard from "./ItemCard";
 import expertStore from "../stores/expertStore";
+import SearchBar from "./SearchBar";
 
 class expertList extends Component {
   render() {
-    const expertCards = expertStore.experts.map(expert => (
-      <ExpertCard
-        key={expert.first_name}
-        expert={expert}
-        expertID={expert.id}
-      />
+    const expertCards = expertStore.filteredExperts.map(expert => (
+      <ExpertCard key={expert.first_name + expert.last_name} expert={expert} />
     ));
 
-    return <View>{expertCards}</View>;
+    return (
+      <View>
+        <SearchBar store={expertStore} />
+        <View> {expertCards} </View>
+      </View>
+    );
   }
 }
 

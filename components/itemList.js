@@ -6,6 +6,7 @@ import { observer } from "mobx-react";
 // Components
 import ItemCard from "./ItemCard";
 import expertStore from "../stores/expertStore";
+import ItemSearchBar from "./ItemSearchBar";
 
 class ItemList extends Component {
   render() {
@@ -13,7 +14,13 @@ class ItemList extends Component {
       <ItemCard key={item.name} item={item} />
     ));
 
-    return <View>{itemCards}</View>;
+    return (
+      <View>
+        <ItemSearchBar list={ItemList} />
+
+        {itemCards}
+      </View>
+    );
   }
 }
 
