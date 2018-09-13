@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import { AsyncStorage } from "react-native";
 import { decorate, observable, action, computed } from "mobx";
 import { observer } from "mobx-react";
 import axios from "axios";
 //stores
 import expertStore from "./expertStore";
+import authStore from "./authStore";
 
 const instance = axios.create({ baseURL: "http://192.168.100.113:8000/api" });
 
@@ -11,23 +13,36 @@ class CartStore {
   constructor() {
     this.cart = [];
     this.order = {};
-    this.quantity = 0;
+    this.orderHistory = null;
   }
 
   handleOrder(id) {
-    item = expertStore.getItembyID(id);
-    const order = this.cart.push(item);
-    this.quantity += 1;
-    this.order = order;
+    let item = expertStore.getItembyID(id);
+    let cartItem = this.cart.find(cartItem => cartItem.id === item.id);
+
+    if (cartItem !== undefined) {
+      cartItem.quantity++;
+    } else {
+      this.cart.push({ ...item, quantity: 1 });
+    }
+    this.saveCart();
   }
 
   handleRemoval(id) {
-    item = expertStore.getItembyID(id);
-    const edited_order = this.cart.splice(this.cart.indexOf(item), 1);
-    this.quantity -= 1;
-    this.order = edited_order;
+    let toBeRemoved = this.cart.find(item => item.id === id);
+    this.cart.splice(this.cart.indexOf(toBeRemoved), 1);
+    this.saveCart();
   }
-
+  saveCart() {
+    AsyncStorage.setItem("cart", JSON.stringify(this.cart));
+  }
+  grabCart() {
+    AsyncStorage.getItem("cart").then(item => {
+      if (item !== null && item !== undefined) {
+        this.cart = JSON.parse(item);
+      }
+    });
+  }
   getAllOfferedItems() {
     return expertStore.items;
   }
@@ -36,34 +51,46 @@ class CartStore {
     const wantedItem = expertStore.items.find(item => +item.id === +id);
     return wantedItem;
   }
-  submitOrder() {
+  //---------------------------SUBMIT ORDER-------------------------//
+  submitOrder(id, quantity, history) {
     return instance
-      .post("/order", {
+      .post("/order/", {
         id: id,
-        quantity: quantity
+        quantity: quantity,
+        history: history
       })
       .then(function(response) {
         console.log(response);
+        AsyncStorage.removeItem("cart");
+        history.push("/expertList");
       })
       .catch(function(error) {
         console.log(error);
+        history.push("/expertList");
       });
   }
-  render() {
-    return (
-      <Text>
-        {" "}
-        {this.order.map((item, index) => this.renderItem(item, index))}{" "}
-      </Text>
-    );
+  //----------------------ORDER HISTORY BY USER-------------------//
+  getOrderHistory() {
+    return instance
+      .get("/orderlist/?format=json")
+      .then(res => res.data)
+      .then(history => {
+        this.orderHistory = history;
+      })
+      .catch(err => console.error(err));
   }
 }
 
 decorate(CartStore, {
   item: observable,
   quantity: observable,
-  handleOrder: observable,
-  getItembyID: action
+  cart: observable,
+  handleOrder: action,
+  handleRemoval: action,
+  submitOrder: action,
+  getItembyID: action,
+  order: observable,
+  orderHistory: observable
 });
 
 const cartStore = new CartStore();

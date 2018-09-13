@@ -14,14 +14,14 @@ import {
 
 class SearchBar extends React.Component {
   render() {
-    const store = this.props.store;
+    const list = this.props.list;
     return (
       <Form>
         <View>
           <Input
             type="text"
             placeholder="Search..."
-            onChangeText={e => (store.query = e)}
+            onChangeText={e => (list.query = e)}
           />
         </View>
       </Form>

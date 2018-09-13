@@ -34,7 +34,6 @@ class ItemCard extends Component {
       <Card>
         <CardItem>
           <Left>
-            {/* <Thumbnail source={{ uri: expert.photo }} /> */}
             <Body>
               <Text>{item.name}</Text>
               <Text>{item.description}</Text>

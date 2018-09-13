@@ -12,6 +12,7 @@ import RegistrationForm from "./RegistrationForm";
 import LandingPage from "./LandingPage";
 import expertList from "./expertList";
 import expertDetails from "./expertDetails";
+import Cart from "./Cart";
 // import itemList from "./itemList";
 
 // Router
@@ -26,12 +27,12 @@ class MainContent extends Component {
       <Content>
         <Switch>
           <Route path="/expertList" component={expertList} />
+          <Route path="/Cart" component={Cart} />
           <Route path="/expertDetails/:id" component={expertDetails} />
           <Route exact path="/" component={LandingPage} />
           <PrivateRoute path="/profile" component={Profile} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={RegistrationForm} />
-          <Redirect to="/login" component={Login} />
         </Switch>
       </Content>
     );

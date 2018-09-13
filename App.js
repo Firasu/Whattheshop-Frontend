@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Expo, { AppLoading } from "expo";
-import { I18nManager } from "react-native";
+import { I18nManager, AsyncStorage } from "react-native";
 
 // Component
 import MainContent from "./components/MainContent";
@@ -13,6 +13,7 @@ import { Root, Container } from "native-base";
 
 // Store
 import authStore from "./stores/authStore";
+import cartStore from "./stores/cartStore";
 
 // Routing
 import { NativeRouter } from "react-router-native";
@@ -30,6 +31,7 @@ class App extends Component {
   componentDidMount() {
     this.loadFonts();
     authStore.checkForToken();
+    cartStore.grabCart();
   }
 
   loadFonts() {

@@ -27,7 +27,7 @@ class ExpertStore {
 
   get filteredExperts() {
     return this.experts.filter(expert =>
-      `${expert.first_name}`.toLowerCase().includes(this.query)
+      expert.first_name.toLowerCase().includes(this.query.toLowerCase())
     );
   }
 
